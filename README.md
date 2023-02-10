@@ -10,3 +10,8 @@ Run:
 ```
 $ solc --storage-layout Example.sol | tail -n +4 | python3 __main__.py
 ```
+
+TODOs:
+
+- [ ] Pack structs
+- [ ] Insert packed structs in algo, to improve packing further
