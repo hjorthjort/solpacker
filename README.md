@@ -4,3 +4,9 @@ The goal is simply to quickly identify optimizations and suggest them.
 
 This is just a proof of concept.
 Ideally this should be part of solc.
+
+Run:
+
+```
+$ solc --storage-layout Example.sol | tail -n +4 | python3 __main__.py
+```
