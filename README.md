@@ -15,3 +15,4 @@ TODOs:
 
 - [ ] Pack structs
 - [ ] Insert packed structs in algo, to improve packing further
+- [ ] Preserve original order as much as possible
