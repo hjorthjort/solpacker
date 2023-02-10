@@ -15,9 +15,9 @@ print("Used slots: %d" % (topSlot + 1))
 label2sizeDict = {}
 
 for s in stor:
-    label2sizeDict[s['label']] = int(typs[s['type']]['numberOfBytes'])
+    label2sizeDict[s['label']] = (int(typs[s['type']]['numberOfBytes']), s['type'])
 
-label2size = list(label2sizeDict.items())
+label2size = [(x[0], x[1][0]) for x in label2sizeDict.items()]
 label2size.sort(key=lambda x: x[1])
 
 theoreticalLimit = (31 + sum([x[1] for x in label2size])) // 32
@@ -45,4 +45,7 @@ def ff_dec(l2s: List[Tuple[str, int]]):
     return (labels, bins)
             
 
-print(ff_dec(label2size))
+(labels, bins) = ff_dec(label2size)
+print("Storage is currently %d slots, can be reduced to %d slots or fewer" % (topSlot + 1, bins))
+for l in labels:
+    print(l, "(%s)" % label2sizeDict[l][1])
