@@ -1,6 +1,7 @@
 pragma solidity ^0.8.0;
 
 contract Example {
+    uint160 v0;
     uint256 v1;
     uint8   v2;
     uint256 v3;
