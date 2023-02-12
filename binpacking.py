@@ -22,7 +22,8 @@ class Bin:
     def __repr__(self):
         return self.__str__()
 
-rec_count = 0
+# For keeping track of recursion depth, debugging help.
+_rec_count = 0
 
 def pack(items_sizes, bin_capacity, num_to_beat=256, good_enough=None):
     """Recusive bin packing algorithm. Beware that this is an exponential time algorithm. Call with care.
@@ -80,6 +81,7 @@ def pack(items_sizes, bin_capacity, num_to_beat=256, good_enough=None):
         if len(bins) >= best_size:
             return best_solution
 
+        # In addition to trying with the first item in all existing bins, try to also give it a fresh bin.
         fresh_bin = Bin()
         fresh_bin.add(items[0], items_sizes[items[0]])
 
