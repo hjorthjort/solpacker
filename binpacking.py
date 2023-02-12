@@ -33,11 +33,15 @@ def pack(items_sizes, bin_capacity, num_to_beat):
     """
 
     if len(items_sizes) == 0:
+
         return [Bin()]
 
     # Sort items by size, largest first
     # This guarantees that the left spine of the recision tree will implement the first fit heuristic.
     items_sorted = sorted(items_sizes, key=lambda x: items_sizes[x], reverse=True)
+
+    theoretical_limit = (bin_capacity - 1 + sum([items_sizes[x] for x in items_sorted])) // bin_capacity
+    print(theoretical_limit)
   
     def pack_aux(items, num_to_beat, bins):
         """Recursive helper function for pack().
@@ -66,6 +70,8 @@ def pack(items_sizes, bin_capacity, num_to_beat):
                 new = pack_aux(items[1:], best_size, bins)
                 rec_count -= 1
                 bin.delete(items[0], items_sizes[items[0]])
+                if len(new) == theoretical_limit:
+                    return new
                 if new is not None and len(new) < best_size:
                     best_size = len(new)
                     best_solution = new
@@ -80,6 +86,8 @@ def pack(items_sizes, bin_capacity, num_to_beat):
         rec_count += 1
         new = pack_aux(items[1:], best_size, bins)
         rec_count -= 1
+        if len(new) == theoretical_limit:
+            return new
         if new is not None and len(new) < best_size:
             best_size = len(new)
             best_solution = new
