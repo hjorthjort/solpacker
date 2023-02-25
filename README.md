@@ -13,8 +13,9 @@ $ solc --storage-layout Example.sol | tail -n +4 | python3 __main__.py
 
 TODOs:
 
+- [ ] Bug: currently tries to reorganize all storage in a single contract, leading to nonsense for many imports, like putting all the `__gap` variables after each other.
 - [ ] A a deadline/depth kill switch: once we have at least one solution start a clock: every new call decreases the clock, when it hits 0 we return None all over, get the current best result. That means we implement first fit and can then _only do better_.
-- [ ] Pack structs, also recursively.
+- [ ] Pack structs, also recursively
 - [ ] Insert packed structs in algo, to improve packing further
 - [ ] Preserve original order as much as possible
 - [ ] Remove vars >= 32 bytes from problem (optimization) and use them to preserve order
