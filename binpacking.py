@@ -41,8 +41,8 @@ def pack(items_sizes, bin_capacity, num_to_beat=256, good_enough=None):
     # This guarantees that the left spine of the recision tree will implement the first fit heuristic.
     items_sorted = sorted(items_sizes, key=lambda x: items_sizes[x], reverse=True)
 
-    if good_enough is None:
-        theoretical_limit = (bin_capacity - 1 + sum([items_sizes[x] for x in items_sorted])) // bin_capacity
+    theoretical_limit = (bin_capacity - 1 + sum([items_sizes[x] for x in items_sorted])) // bin_capacity
+    if good_enough is None or good_enough < theoretical_limit:
         good_enough = theoretical_limit
   
     def pack_aux(items, num_to_beat, bins):
@@ -59,7 +59,9 @@ def pack(items_sizes, bin_capacity, num_to_beat=256, good_enough=None):
         best_size = num_to_beat
 
         if len(items) == 0:
-            return bins
+            if len(bins) < num_to_beat:
+                return bins
+            return None
 
         best_solution = None
 
