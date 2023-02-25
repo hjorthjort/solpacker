@@ -53,7 +53,7 @@ def pack(items_sizes, bin_capacity, num_to_beat=256, good_enough=None):
         :return: list of bins, each containing a list of items
         """
 
-        global rec_count
+        global _rec_count
 
         bins = copy.deepcopy(bins)
         best_size = num_to_beat
@@ -68,9 +68,9 @@ def pack(items_sizes, bin_capacity, num_to_beat=256, good_enough=None):
         for bin in bins:
             if bin.size + items_sizes[items[0]] <= bin_capacity:
                 bin.add(items[0], items_sizes[items[0]])
-                rec_count += 1
+                _rec_count += 1
                 new = pack_aux(items[1:], best_size, bins)
-                rec_count -= 1
+                _rec_count -= 1
                 bin.delete(items[0], items_sizes[items[0]])
                 if new is not None and len(new) == good_enough:
                     return new
@@ -86,9 +86,9 @@ def pack(items_sizes, bin_capacity, num_to_beat=256, good_enough=None):
         fresh_bin.add(items[0], items_sizes[items[0]])
 
         bins.append(fresh_bin)
-        rec_count += 1
+        _rec_count += 1
         new = pack_aux(items[1:], best_size, bins)
-        rec_count -= 1
+        _rec_count -= 1
         if new is not None and len(new) == good_enough:
             return new
         if new is not None and len(new) < best_size:
